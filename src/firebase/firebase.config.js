@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/compat/app';
-import { getFirestore } from 'firebase/compat/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
 //import 'firebase/compat/auth';
 
 // Your web app's Firebase configuration

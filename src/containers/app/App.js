@@ -16,15 +16,15 @@ function App() {
 			<Router>
 				<Routes>
 
-					<Route exact path='/' element={<Explorer />} />
-					<Route exact path='/offers' element={<Offers />} />
+					<Route path='/' element={<Explorer />} />
+					<Route path='/offers' element={<Offers />} />
 					<Route path='/profile' element={<UserAuthentication />} />
 					<Route
 						path='/auth'
 						element={<UserAuthentication />}
 					/>
 					<Route
-						path='/register'
+						exact path='/register'
 						element={<UserRegistration />}
 					/>
 					<Route

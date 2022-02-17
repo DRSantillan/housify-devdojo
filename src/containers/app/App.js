@@ -10,7 +10,8 @@ import UserAuthentication from '../../pages/user-authentication/UserAuthenticati
 import UserRegistration from '../../pages/user-registration/UserRegistration.page';
 
 import NavBar from '../../components/layout/navbar/NavBar.component';
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
+import PrivateRoute from '../../components/private-route/PrivateRoute.component';
 
 function App() {
 	return (
@@ -19,7 +20,9 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Explorer />} />
 					<Route path='/offers' element={<Offers />} />
-					<Route path='/profile' element={<UserProfile />} />
+					<Route path='/profile' element={PrivateRoute}>
+						<Route path='/profile' element={<UserProfile />} />
+					</Route>
 					<Route path='/auth' element={<UserAuthentication />} />
 					<Route
 						exact
@@ -30,7 +33,11 @@ function App() {
 				</Routes>
 				<NavBar />
 			</Router>
-			<ToastContainer position='bottom-center' autoClose={3000} theme='colored' />
+			<ToastContainer
+				position='bottom-center'
+				autoClose={3000}
+				theme='colored'
+			/>
 		</>
 	);
 }

@@ -651,7 +651,11 @@ button {
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.2);
-  max-width: 500px;
+  max-width: 510px;
+   display: flex;
+  align-content: center;
+  padding-right: 30px;
+ 
 }
 
 .profileDetails {
@@ -669,9 +673,17 @@ button {
   margin: 0.3rem 0;
   font-weight: 600;
   width: 100%;
+  
 }
 .profileNameActive {
   background-color: rgba(44, 44, 44, 0.1);
+  height: 1.5rem;
+  padding: 1rem;
+  border-radius: 1rem;
+ 
+  border: solid 1px #379968;
+ 
+ 
 }
 
 .profileEmail,
@@ -682,6 +694,12 @@ button {
 }
 .profileEmailActive {
   background-color: rgba(44, 44, 44, 0.1);
+  background-color: rgba(44, 44, 44, 0.1);
+  height: 1.5rem;
+  padding: 1rem;
+  
+  border-radius: 1rem;
+  border: solid 1px #379968;
 }
 
 .profileAddressActive {

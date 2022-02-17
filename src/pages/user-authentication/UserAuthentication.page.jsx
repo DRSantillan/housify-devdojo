@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as ArrowRightIcon } from '../../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 const UserAuthentication = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -27,11 +28,13 @@ const UserAuthentication = () => {
 				email,
 				password
 			);
+
 			if (userCredentials.user) {
+				toast.success('Welcome back', {theme: 'colored'})
 				navigate('/');
 			}
 		} catch (error) {
-			console.log(error);
+			toast.error('Bad User Credentials, try again!', {theme: 'colored'})
 		}
 	};
 	return (

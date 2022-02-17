@@ -7,15 +7,9 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 } from 'firebase/auth';
-import {
-	serverTimestamp,
-	collection,
-	addDoc,
-	setDoc,
-	doc,
-	getDoc,
-} from 'firebase/firestore';
+import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
+import { toast } from 'react-toastify';
 
 const UserRegistration = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -46,12 +40,13 @@ const UserRegistration = () => {
 			formDataCopy.timeStamp = serverTimestamp();
 
 			// add authenticated use with uid to collection of users uid.
-			await setDoc(doc(db, 'users', `${user.uid}`), formDataCopy)
-			
-
+			await setDoc(doc(db, 'users', `${user.uid}`), formDataCopy);
+toast.success('Thank you for becoming a member of Housify! Now lets find you a home...', { theme: 'colored' });
 			navigate('/');
 		} catch (error) {
-			console.log(error);
+			toast.error('Oooops Something must have gone wrong, Please try to register again!', {
+				theme: 'colored',
+			});
 		}
 	};
 	const onInputChange = event => {

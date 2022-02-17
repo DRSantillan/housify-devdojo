@@ -7,7 +7,14 @@ import {
 	createUserWithEmailAndPassword,
 	updateProfile,
 } from 'firebase/auth';
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import {
+	serverTimestamp,
+	collection,
+	addDoc,
+	setDoc,
+	doc,
+	getDoc,
+} from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
 
 const UserRegistration = () => {
@@ -33,6 +40,14 @@ const UserRegistration = () => {
 			updateProfile(auth.currentUser, {
 				displayName: name,
 			});
+
+			const formDataCopy = { ...formData };
+			delete formDataCopy.password;
+			formDataCopy.timeStamp = serverTimestamp();
+
+			// add authenticated use with uid to collection of users uid.
+			await setDoc(doc(db, 'users', `${user.uid}`), formDataCopy)
+			
 
 			navigate('/');
 		} catch (error) {

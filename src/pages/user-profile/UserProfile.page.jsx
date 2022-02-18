@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { getAuth, updateProfile } from 'firebase/auth';
-import { db } from '../../firebase/firebase.config';
-import { updateDoc, doc } from 'firebase/firestore';
+import React, { useState } from 'react';
+
+import {
+  getAuth,
+  updateProfile,
+} from 'firebase/auth';
+import {
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import { db } from '../../firebase/firebase.config';
 
 const UserProfile = () => {
 	const auth = getAuth();

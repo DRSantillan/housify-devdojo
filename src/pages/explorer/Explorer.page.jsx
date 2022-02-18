@@ -24,7 +24,7 @@ const Explorer = () => {
 						/>
 						<p className='exploreCategoryName'>Rentals</p>
 					</Link>
-					<Link to='/category/sell'>
+					<Link to='/category/sale'>
 						<img
 							src={SellCategoryImage}
 							alt='Category: Sales'

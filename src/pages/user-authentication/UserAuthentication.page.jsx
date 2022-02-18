@@ -5,6 +5,7 @@ import { ReactComponent as ArrowRightIcon } from '../../assets/svg/keyboardArrow
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import GoogleOAuth from '../../components/google-oauth/GoogleOauth.component';
 
 const UserAuthentication = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -84,7 +85,7 @@ const UserAuthentication = () => {
 						</button>
 					</div>
 				</form>
-				{/*google oauth */}
+				<GoogleOAuth/>
 				<Link to='/register' className='registerLink'>
 					New User Registration
 				</Link>

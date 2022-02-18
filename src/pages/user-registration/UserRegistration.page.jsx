@@ -10,6 +10,7 @@ import {
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/firebase.config';
 import { toast } from 'react-toastify';
+import GoogleOAuth from '../../components/google-oauth/GoogleOauth.component';
 
 const UserRegistration = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -41,12 +42,18 @@ const UserRegistration = () => {
 
 			// add authenticated use with uid to collection of users uid.
 			await setDoc(doc(db, 'users', `${user.uid}`), formDataCopy);
-toast.success('Thank you for becoming a member of Housify! Now lets find you a home...', { theme: 'colored' });
+			toast.success(
+				'Thank you for becoming a member of Housify! Now lets find you a home...',
+				{ theme: 'colored' }
+			);
 			navigate('/');
 		} catch (error) {
-			toast.error('Oooops Something must have gone wrong, Please try to register again!', {
-				theme: 'colored',
-			});
+			toast.error(
+				'Oooops Something must have gone wrong, Please try to register again!',
+				{
+					theme: 'colored',
+				}
+			);
 		}
 	};
 	const onInputChange = event => {
@@ -108,7 +115,7 @@ toast.success('Thank you for becoming a member of Housify! Now lets find you a h
 					</button>
 				</div>
 			</form>
-			{/*oauth google */}
+			<GoogleOAuth />
 			<Link to='/auth' className='registerLink'>
 				Sign In Instead
 			</Link>

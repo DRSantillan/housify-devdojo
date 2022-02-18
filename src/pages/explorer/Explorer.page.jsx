@@ -29,9 +29,9 @@ const Explorer = () => {
 							src={SellCategoryImage}
 							alt='Category: Sales'
 							className='exploreCategoryImg'
-						/><p className='exploreCategoryName'>Sales</p>
+						/>
+						<p className='exploreCategoryName'>Sales</p>
 					</Link>
-					
 				</div>
 			</main>
 		</div>

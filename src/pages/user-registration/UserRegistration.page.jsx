@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
-import { ReactComponent as ArrowRightIcon } from '../../assets/svg/keyboardArrowRightIcon.svg';
+
 import {
-	getAuth,
-	createUserWithEmailAndPassword,
-	updateProfile,
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
 } from 'firebase/auth';
-import { serverTimestamp, setDoc, doc } from 'firebase/firestore';
-import { db } from '../../firebase/firebase.config';
+import {
+  doc,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import {
+  ReactComponent as ArrowRightIcon,
+} from '../../assets/svg/keyboardArrowRightIcon.svg';
+import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import GoogleOAuth from '../../components/google-oauth/GoogleOauth.component';
+import { db } from '../../firebase/firebase.config';
 
 const UserRegistration = () => {
 	const [showPassword, setShowPassword] = useState(false);

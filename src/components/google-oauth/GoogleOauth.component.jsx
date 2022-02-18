@@ -1,11 +1,24 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../firebase/firebase.config';
 
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
+import {
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
+import {
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 import GoogleIcon from '../../assets/svg/googleIcon.svg';
+import { db } from '../../firebase/firebase.config';
 
 const GoogleOAuth = () => {
 	const navigate = useNavigate();
@@ -33,7 +46,7 @@ const GoogleOAuth = () => {
 			});
 			navigate('/');
 		} catch (error) {
-            console.log(error)
+			console.log(error);
 			toast.error(
 				'Could not authenticate with Google! Please try again.',
 				{ theme: 'colored' }

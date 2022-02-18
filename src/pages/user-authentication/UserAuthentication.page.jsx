@@ -1,10 +1,19 @@
-import React from 'react';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { ReactComponent as ArrowRightIcon } from '../../assets/svg/keyboardArrowRightIcon.svg';
-import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import {
+  Link,
+  useNavigate,
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import {
+  ReactComponent as ArrowRightIcon,
+} from '../../assets/svg/keyboardArrowRightIcon.svg';
+import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import GoogleOAuth from '../../components/google-oauth/GoogleOauth.component';
 
 const UserAuthentication = () => {
@@ -31,11 +40,13 @@ const UserAuthentication = () => {
 			);
 
 			if (userCredentials.user) {
-				toast.success('Welcome back', {theme: 'colored'})
+				toast.success('Welcome back', { theme: 'colored' });
 				navigate('/');
 			}
 		} catch (error) {
-			toast.error('Bad User Credentials, try again!', {theme: 'colored'})
+			toast.error('Bad User Credentials, try again!', {
+				theme: 'colored',
+			});
 		}
 	};
 	return (
@@ -85,7 +96,7 @@ const UserAuthentication = () => {
 						</button>
 					</div>
 				</form>
-				<GoogleOAuth/>
+				<GoogleOAuth />
 				<Link to='/register' className='registerLink'>
 					New User Registration
 				</Link>

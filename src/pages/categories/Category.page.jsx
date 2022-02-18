@@ -6,7 +6,7 @@ import {
 	limit,
 	orderBy,
 	query,
-	startAfter,
+	//startAfter,
 	where,
 } from 'firebase/firestore';
 import { useParams } from 'react-router-dom';

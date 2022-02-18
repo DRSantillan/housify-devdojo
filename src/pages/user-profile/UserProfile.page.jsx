@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 
-import {
-  getAuth,
-  updateProfile,
-} from 'firebase/auth';
-import {
-  doc,
-  updateDoc,
-} from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { getAuth, updateProfile } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import ArrowRightIcon from '../../assets/svg/keyboardArrowRightIcon.svg';
+import HomeIcon from '../../assets/svg/homeIcon.svg';
 import { db } from '../../firebase/firebase.config';
 
 const UserProfile = () => {
@@ -108,6 +104,15 @@ const UserProfile = () => {
 						/>
 					</form>
 				</div>
+				<Link to='/create-listing' className='createListing'>
+					<img src={HomeIcon} alt='Home' />
+					<p>Sell or Rent your home or apartment</p>
+					<img
+						src={ArrowRightIcon}
+						
+						alt='Click here to sell or rent...'
+					/>
+				</Link>
 			</main>
 		</div>
 	);

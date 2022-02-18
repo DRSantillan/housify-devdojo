@@ -6,10 +6,10 @@ import {
 	limit,
 	orderBy,
 	query,
-	startAfter,
+	//startAfter,
 	where,
 } from 'firebase/firestore';
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Spinner from '../../components/spinner/Spinner.component';
@@ -20,7 +20,7 @@ const Offers = () => {
 	const [listings, setListings] = useState(null);
 	const [loading, setLoading] = useState(true);
 
-	const params = useParams();
+	
 
 	useEffect(() => {
 		const fetchListings = async () => {

@@ -20,7 +20,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<Explorer />} />
 					<Route path='/offers' element={<Offers />} />
-					<Route path='/profile' element={PrivateRoute}>
+					<Route path='/profile' element={<PrivateRoute/>}>
 						<Route path='/profile' element={<UserProfile />} />
 					</Route>
 					<Route path='/auth' element={<UserAuthentication />} />

@@ -9,12 +9,11 @@ const UserProfile = () => {
 	const auth = getAuth();
 	const navigate = useNavigate();
 	//state
+	const [updateProfileData, setUpdateProfiel] = useState(false);
 	const [formData, setFormData] = useState({
 		name: auth.currentUser.displayName,
 		email: auth.currentUser.email,
 	});
-	const [updateProfileData, setUpdateProfiel] = useState(false);
-
 	const { name, email } = formData;
 
 	const userSignOut = () => {
@@ -35,7 +34,7 @@ const UserProfile = () => {
 				});
 			}
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 			toast.error(
 				'Ooops Something went wrong! Please try to update again or wait a few minutes.',
 				{

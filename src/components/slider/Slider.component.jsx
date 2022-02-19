@@ -6,6 +6,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Spinner from '../../components/spinner/Spinner.component';
 import 'swiper/css/bundle';
+
 const Slider = () => {
 	const [loading, setLoading] = useState(true);
 	const [listings, setListings] = useState(null);

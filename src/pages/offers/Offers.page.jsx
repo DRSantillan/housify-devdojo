@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import {
 	collection,
 	getDocs,
@@ -9,9 +8,7 @@ import {
 	startAfter,
 	where,
 } from 'firebase/firestore';
-//import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 import Spinner from '../../components/spinner/Spinner.component';
 import { db } from '../../firebase/firebase.config';
 import ListingItem from '../../components/listing-item/ListingItem.component';

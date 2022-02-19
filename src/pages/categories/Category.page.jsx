@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import {
 	collection,
 	getDocs,
@@ -38,7 +37,7 @@ const Category = () => {
 				const querySnapShot = await getDocs(q);
 				const lastVisibleListing =
 					querySnapShot.docs[querySnapShot.docs.length - 1];
-					setLastRetrievedListing(lastVisibleListing)
+				setLastRetrievedListing(lastVisibleListing);
 				const categoryListings = [];
 
 				querySnapShot.forEach(doc => {
@@ -56,7 +55,6 @@ const Category = () => {
 
 		fetchListings();
 	}, [params.categoryName]);
-
 
 	const onRetrieveMoreListings = async () => {
 		try {
@@ -82,7 +80,7 @@ const Category = () => {
 					data: doc.data(),
 				});
 			});
-			setListings((prevState => [...prevState, ...listings]));
+			setListings(prevState => [...prevState, ...listings]);
 			setLoading(false);
 		} catch (error) {
 			toast.error('Could not retrieve the listings you requested!');
@@ -112,11 +110,16 @@ const Category = () => {
 							))}
 						</ul>
 					</main>
-					<br/>
-					<br/>
-					{lastRetrievedListing && (<p className='loadMore' onClick={onRetrieveMoreListings}>
-						Load More Listings
-					</p>)}
+					<br />
+					<br />
+					{lastRetrievedListing && (
+						<p
+							className='loadMore'
+							onClick={onRetrieveMoreListings}
+						>
+							Load More Listings
+						</p>
+					)}
 				</>
 			) : (
 				<p>No Listings for {params.categoryName} currently</p>

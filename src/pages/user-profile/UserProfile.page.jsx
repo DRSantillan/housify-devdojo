@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { getAuth, updateProfile } from 'firebase/auth';
 import {
 	updateDoc,
@@ -13,11 +12,10 @@ import {
 } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 import ArrowRightIcon from '../../assets/svg/keyboardArrowRightIcon.svg';
 import HomeIcon from '../../assets/svg/homeIcon.svg';
 import { db } from '../../firebase/firebase.config';
-import ListingItem from '../../components/listing-item/ListingItem.component'
+import ListingItem from '../../components/listing-item/ListingItem.component';
 
 const UserProfile = () => {
 	const auth = getAuth();
@@ -55,8 +53,8 @@ const UserProfile = () => {
 					data: doc.data(),
 				});
 			});
-			setListings(listings)
-			setLoading(false)
+			setListings(listings);
+			setLoading(false);
 		};
 
 		getUserListings();

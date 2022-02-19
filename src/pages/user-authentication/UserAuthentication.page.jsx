@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
-import {
-  Link,
-  useNavigate,
-} from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-import {
-  ReactComponent as ArrowRightIcon,
-} from '../../assets/svg/keyboardArrowRightIcon.svg';
+import { ReactComponent as ArrowRightIcon } from '../../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../../assets/svg/visibilityIcon.svg';
 import GoogleOAuth from '../../components/google-oauth/GoogleOauth.component';
 

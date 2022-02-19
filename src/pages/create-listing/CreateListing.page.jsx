@@ -95,7 +95,7 @@ const CreateListing = () => {
 			);
 
 			const data = await response.json();
-			console.log(data);
+			
 
 			geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
 			geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;

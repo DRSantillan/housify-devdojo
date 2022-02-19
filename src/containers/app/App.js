@@ -19,6 +19,7 @@ import UserProfile from '../../pages/user-profile/UserProfile.page';
 import UserRegistration
   from '../../pages/user-registration/UserRegistration.page';
   import AdvertisedListing from '../../pages/listing/Listing.page';
+  import ContactAgent from '../../pages/contact/ContactAgent.page';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 					/>
 					<Route path='/create-listing' element={<CreateListing />} />
 					<Route path='/category/:categoryName/:listingId' element={<AdvertisedListing />} />
+					<Route path='/contact/:userId' element={<ContactAgent/>}/>
 					<Route path='/profile' element={<PrivateRoute />}>
 						<Route path='/profile' element={<UserProfile />} />
 					</Route>

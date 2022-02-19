@@ -5,7 +5,15 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner/Spinner.component';
 import { toast } from 'react-toastify';
-
+import {
+	getStorage,
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+} from 'firebase/storage';
+import { db } from '../../firebase/firebase.config';
+import { v4 as uuidv4 } from 'uuid';
+import { serverTimestamp, collection, addDoc } from 'firebase/firestore';
 const CreateListing = () => {
 	const [geolocationEnabled, setgeolocationEnabled] = useState(true);
 	const [loading, setLoading] = useState(false);
@@ -79,34 +87,106 @@ const CreateListing = () => {
 		}
 
 		let geolocation = {};
-		let location
+		let location;
 
-		 if (geolocationEnabled) {
-				const response = await fetch(
-					`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
-				);
+		if (geolocationEnabled) {
+			const response = await fetch(
+				`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
+			);
 
-				const data = await response.json();
-				console.log(data)
+			const data = await response.json();
+			console.log(data);
 
-				geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
-				geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
+			geolocation.lat = data.results[0]?.geometry.location.lat ?? 0;
+			geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
 
-				location =
-					data.status === 'ZERO_RESULTS'
-						? undefined
-						: data.results[0]?.formatted_address;
+			location =
+				data.status === 'ZERO_RESULTS'
+					? undefined
+					: data.results[0]?.formatted_address;
 
-				if (location === undefined || location.includes('undefined')) {
-					setLoading(false);
-					toast.error('Please enter a correct address');
-					return;
-				}
-			} else {
-				geolocation.lat = latitude;
-				geolocation.lng = longitude;
+			if (location === undefined || location.includes('undefined')) {
+				setLoading(false);
+				toast.error('Please enter a correct address');
+				return;
 			}
-			setLoading(false)
+		} else {
+			geolocation.lat = latitude;
+			geolocation.lng = longitude;
+		}
+
+		// image store function
+		const storeImage = async image => {
+			return new Promise((resolve, reject) => {
+				const storage = getStorage();
+				const fileName = `${auth.currentUser.uid}-${
+					image.name
+				}-${uuidv4()}`;
+				const storageRef = ref(storage, `images/${fileName}`);
+
+				const uploadTask = uploadBytesResumable(storageRef, image);
+
+				uploadTask.on(
+					'state_changed',
+					snapshot => {
+						const progress =
+							(snapshot.bytesTransferred / snapshot.totalBytes) *
+							100;
+						console.log(`Upload is ${progress}% complete.`);
+						switch (snapshot.state) {
+							case 'paused':
+								console.log('Upload is paused');
+								break;
+							case 'running':
+								console.log('Upload is running');
+								break;
+							default:
+						}
+					},
+					error => {
+						reject(error);
+						toast.error(
+							'Unable to complete your request, please try again.'
+						);
+					},
+					() => {
+						getDownloadURL(uploadTask.snapshot.ref).then(
+							downloadURL => {
+								console.log(`File available at ${downloadURL}`);
+								resolve(downloadURL);
+							}
+						);
+					}
+				);
+			});
+		};
+
+		const imageUrls = await Promise.all(
+			[...images].map(image => storeImage(image))
+		).catch(() => {
+			setLoading(false);
+			toast.error('Images not uploaded...');
+			return;
+		});
+
+		const formDataCopy = {
+			...formData,
+			imageUrls,
+			geolocation,
+			timestamp: serverTimestamp(),
+		};
+		console.log(formDataCopy);
+
+		formDataCopy.location = address;
+		delete formDataCopy.images;
+		delete formDataCopy.address;
+		location && (formDataCopy.location = location);
+		!formDataCopy.offer && delete formDataCopy.discountedPrice;
+
+		const docRef = await addDoc(collection(db, 'listing'), formDataCopy);
+		setLoading(false);
+		toast.success('Your listing has been added and ready for sale.');
+		navigate(`/category/${formDataCopy.type}/${docRef.id}`);
 	};
 
 	//

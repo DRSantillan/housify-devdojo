@@ -6,7 +6,7 @@ import {
 	limit,
 	orderBy,
 	query,
-	//startAfter,
+	startAfter,
 	where,
 } from 'firebase/firestore';
 //import { useParams } from 'react-router-dom';
@@ -19,8 +19,7 @@ import ListingItem from '../../components/listing-item/ListingItem.component';
 const Offers = () => {
 	const [listings, setListings] = useState(null);
 	const [loading, setLoading] = useState(true);
-
-	
+	const [lastRetrievedListing, setLastRetrievedListing] = useState(null);
 
 	useEffect(() => {
 		const fetchListings = async () => {
@@ -35,7 +34,9 @@ const Offers = () => {
 				);
 
 				const querySnapShot = await getDocs(q);
-				
+				const lastVisibleListing =
+					querySnapShot.docs[querySnapShot.docs.length - 1];
+				setLastRetrievedListing(lastVisibleListing);
 				const categoryListings = [];
 
 				querySnapShot.forEach(doc => {
@@ -53,12 +54,41 @@ const Offers = () => {
 
 		fetchListings();
 	}, []);
+
+	const onRetrieveMoreListings = async () => {
+		try {
+			const listingRef = collection(db, 'listing');
+
+			const q = query(
+				listingRef,
+				where('offer', '==', true),
+				orderBy('timestamp', 'desc'),
+				startAfter(lastRetrievedListing),
+				limit(10)
+			);
+
+			const querySnapShot = await getDocs(q);
+			const lastVisibleListing =
+				querySnapShot.docs[querySnapShot.docs.length - 1];
+			setLastRetrievedListing(lastVisibleListing);
+			const categoryListings = [];
+
+			querySnapShot.forEach(doc => {
+				return categoryListings.push({
+					id: doc.id,
+					data: doc.data(),
+				});
+			});
+			setListings(prevState => [...prevState, ...listings]);
+			setLoading(false);
+		} catch (error) {
+			toast.error('Could not retrieve the listings you requested!');
+		}
+	};
 	return (
 		<div className='category'>
 			<header>
-				<p className='pageHeader'>
-					Offers
-				</p>
+				<p className='pageHeader'>Offers</p>
 			</header>
 			{loading ? (
 				<Spinner />
@@ -75,6 +105,16 @@ const Offers = () => {
 							))}
 						</ul>
 					</main>
+					<br />
+					<br />
+					{lastRetrievedListing && (
+						<p
+							className='loadMore'
+							onClick={onRetrieveMoreListings}
+						>
+							Load More Listings
+						</p>
+					)}
 				</>
 			) : (
 				<p>Currently, there are no offers available.</p>

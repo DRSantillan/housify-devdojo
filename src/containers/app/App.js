@@ -18,6 +18,7 @@ import UserAuthentication
 import UserProfile from '../../pages/user-profile/UserProfile.page';
 import UserRegistration
   from '../../pages/user-registration/UserRegistration.page';
+  import AdvertisedListing from '../../pages/listing/Listing.page';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
 						element={<Category />}
 					/>
 					<Route path='/create-listing' element={<CreateListing />} />
+					<Route path='/category/:categoryName/:listingId' element={<AdvertisedListing />} />
 					<Route path='/profile' element={<PrivateRoute />}>
 						<Route path='/profile' element={<UserProfile />} />
 					</Route>
